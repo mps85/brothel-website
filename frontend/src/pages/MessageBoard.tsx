@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { createMessage, fetchLatestMessage, fetchMessages, type Message } from "../api";
+import { getUsername } from "../auth";
 
 function MessageBoard() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
-  const [username] = useState(() => localStorage.getItem("brothel_user") ?? "");
+  const [username] = useState(getUsername);
   const lastIdRef = useRef(0);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ function MessageBoard() {
       return;
     }
     try {
-      const message = await createMessage(username, content.trim());
+      const message = await createMessage(content.trim());
       setMessages((prev) => [...prev, message]);
       setContent("");
       setError("");

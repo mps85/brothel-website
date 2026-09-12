@@ -1,19 +1,35 @@
 import { useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { logout } from "./api";
+import { clearUser, getUser, getUsername } from "./auth";
 import "./App.css";
+
+interface RoleSection {
+  role: string;
+  links: Array<{ to: string; label: string }>;
+}
+
+const roleSections: RoleSection[] = [
+  {
+    role: "admin",
+    links: [{ to: "/admin", label: "User Administration" }],
+  },
+];
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const username = localStorage.getItem("brothel_user");
+  const username = getUsername();
+  const roles = getUser()?.roles ?? [];
 
   function closeMenu() {
     setMenuOpen(false);
   }
 
   function handleLogout() {
-    localStorage.removeItem("brothel_user");
+    void logout();
+    clearUser();
     closeMenu();
     navigate("/");
   }
@@ -73,6 +89,26 @@ function App() {
               For Campmates
             </Link>
           </li>
+          {roleSections
+            .filter((section) => roles.includes(section.role))
+            .map((section) => (
+              <li key={section.role} className="menu-role-section">
+                <span className="menu-role-header">{section.role}</span>
+                <ul className="menu-role-links">
+                  {section.links.map((link) => (
+                    <li key={link.to}>
+                      <Link
+                        to={link.to}
+                        onClick={closeMenu}
+                        className={location.pathname.startsWith(link.to) ? "active" : ""}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
           {username && (
             <li>
               <button className="logout-btn" onClick={handleLogout}>

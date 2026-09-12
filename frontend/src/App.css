@@ -154,6 +154,26 @@
   background: rgba(22, 243, 255, 0.1);
 }
 
+.menu-role-section {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.menu-role-header {
+  display: block;
+  padding: 1rem 1rem 0.35rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.menu-role-links {
+  display: grid;
+  gap: 0.25rem;
+}
+
 .menu .logout-btn {
   display: block;
   width: 100%;
@@ -532,4 +552,58 @@
 .board-form button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.user-admin-note {
+  color: var(--neon-cyan);
+  font-family: "Share Tech Mono", monospace;
+}
+
+.admin-table {
+  width: 100%;
+  margin: 1rem 0 2rem;
+  border-collapse: collapse;
+  font-family: "Share Tech Mono", monospace;
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-table th {
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+}
+
+.admin-delete {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--neon-pink);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--neon-pink);
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.admin-delete:hover {
+  background: var(--neon-pink);
+  color: #0b0620;
+}
+
+.admin-subhead {
+  margin: 0 0 0.75rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--neon-yellow);
 }

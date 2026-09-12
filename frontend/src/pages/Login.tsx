@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api";
+import { setUser } from "../auth";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ function Login() {
     e.preventDefault();
     try {
       const user = await login(email, password);
-      localStorage.setItem("brothel_user", user.username);
+      setUser(user);
       navigate("/campmates");
     } catch {
       setError("Login failed. What are you even doing?");

@@ -5,6 +5,7 @@ import App from "./App";
 import Login from "./pages/Login";
 import Campmates from "./pages/Campmates";
 import MessageBoard from "./pages/MessageBoard";
+import Admin from "./pages/Admin";
 import Home from "./pages/Home";
 import "./index.css";
 
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
       { path: "/for-campmates", element: <Login /> },
       { path: "/campmates", element: <Campmates /> },
       { path: "/message-board", element: <MessageBoard /> },
+      { path: "/admin", element: <Admin /> },
     ],
   },
 ]);

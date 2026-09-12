@@ -33,6 +33,38 @@ const migrations = [
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `,
+  `
+    CREATE TABLE IF NOT EXISTS roles (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL UNIQUE
+    )
+  `,
+  `
+    INSERT INTO roles (name)
+    SELECT 'admin'
+    WHERE NOT EXISTS (SELECT 1 FROM roles WHERE name = 'admin')
+  `,
+  `
+    CREATE TABLE IF NOT EXISTS user_roles (
+      user_username TEXT NOT NULL REFERENCES users(username) ON DELETE CASCADE,
+      role_name TEXT NOT NULL REFERENCES roles(name) ON DELETE CASCADE,
+      PRIMARY KEY (user_username, role_name)
+    )
+  `,
+  `
+    INSERT INTO user_roles (user_username, role_name)
+    SELECT username, 'admin'
+    FROM users
+    WHERE username = 'admin'
+    ON CONFLICT DO NOTHING
+  `,
+  `
+    CREATE TABLE IF NOT EXISTS sessions (
+      token TEXT PRIMARY KEY,
+      username TEXT NOT NULL REFERENCES users(username) ON DELETE CASCADE,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `,
 ];
 
 async function migrate() {
