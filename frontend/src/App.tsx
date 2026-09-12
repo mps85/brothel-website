@@ -1,13 +1,21 @@
 import { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const username = localStorage.getItem("brothel_user");
 
   function closeMenu() {
     setMenuOpen(false);
+  }
+
+  function handleLogout() {
+    localStorage.removeItem("brothel_user");
+    closeMenu();
+    navigate("/");
   }
 
   return (
@@ -19,7 +27,9 @@ function App() {
             src="/images/camp_logo_02.png"
             alt="BROTHel camp logo"
           />
-          <h1 className="topbar-title">Welcome to the BROTHel</h1>
+          <h1 className="topbar-title">
+            Welcome to the BROTHel{username ? `, ${username}` : ""}
+          </h1>
         </Link>
         <button
           className={`menu-btn ${menuOpen ? "open" : ""}`}
@@ -51,13 +61,25 @@ function App() {
           </li>
           <li>
             <Link
-              to="/for-campmates"
+              to={username ? "/campmates" : "/for-campmates"}
               onClick={closeMenu}
-              className={location.pathname.startsWith("/for-campmates") ? "active" : ""}
+              className={
+                location.pathname.startsWith("/for-campmates") ||
+                location.pathname.startsWith("/campmates")
+                  ? "active"
+                  : ""
+              }
             >
               For Campmates
             </Link>
           </li>
+          {username && (
+            <li>
+              <button className="logout-btn" onClick={handleLogout}>
+                Log Out
+              </button>
+            </li>
+          )}
         </ul>
       </nav>
 

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
 const images = [
   "/images/BROTHel at night - Critical 26.jpg",
@@ -7,30 +7,14 @@ const images = [
 
 function Carousel() {
   const [index, setIndex] = useState(0);
-  const timer = useRef<number | null>(null);
 
   const goTo = useCallback(
     (next: number) => setIndex(((next % images.length) + images.length) % images.length),
     [],
   );
 
-  useEffect(() => {
-    timer.current = window.setInterval(() => {
-      setIndex((i) => (i + 1) % images.length);
-    }, 4000);
-    return () => {
-      if (timer.current !== null) window.clearInterval(timer.current);
-    };
-  }, []);
-
   function handleClick(next: number) {
     goTo(next);
-    if (timer.current !== null) {
-      window.clearInterval(timer.current);
-      timer.current = window.setInterval(() => {
-        setIndex((i) => (i + 1) % images.length);
-      }, 4000);
-    }
   }
 
   return (

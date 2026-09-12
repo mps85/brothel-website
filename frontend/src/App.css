@@ -154,6 +154,30 @@
   background: rgba(22, 243, 255, 0.1);
 }
 
+.menu .logout-btn {
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--neon-pink);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--neon-pink);
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.menu .logout-btn:hover {
+  color: #0b0620;
+  border-color: var(--neon-pink);
+  background: var(--neon-pink);
+  box-shadow: 0 0 20px rgba(255, 46, 196, 0.5);
+}
+
 .app {
   max-width: 960px;
   margin: 0 auto;
@@ -365,11 +389,20 @@
   cursor: not-allowed;
 }
 
+.login-error {
+  color: #ff5d5d;
+  font-family: "Share Tech Mono", monospace;
+}
+
 .campmates {
   background: var(--bg-panel);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 1.75rem;
+}
+
+.campmates a {
+  color: var(--neon-cyan);
 }
 
 .campmates h1 {
@@ -381,4 +414,122 @@
   color: var(--neon-yellow);
   text-shadow: 0 0 12px rgba(249, 240, 2, 0.45);
   text-transform: uppercase;
+}
+
+.board {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem;
+}
+
+.board h1 {
+  margin: 0 0 1.25rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 12px rgba(249, 240, 2, 0.45);
+  text-transform: uppercase;
+}
+
+.board-empty {
+  color: var(--text-dim);
+}
+
+.board-messages {
+  display: grid;
+  gap: 1rem;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.board-message.own {
+  justify-self: end;
+  text-align: right;
+}
+
+.board-message {
+  line-height: 1.7;
+  width: 100%;
+}
+
+.board-author {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+}
+
+.board-time {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.board-message p {
+  margin: 0 0 0.75rem;
+}
+
+.board-message p:last-child {
+  margin-bottom: 0;
+}
+
+.board-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.board-form textarea {
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Share Tech Mono", monospace;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.board-form textarea:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 12px rgba(22, 243, 255, 0.35);
+}
+
+.board-form button {
+  padding: 0.8rem 1.25rem;
+  border: 1px solid var(--neon-pink);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--neon-pink);
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.board-form button:hover:not(:disabled) {
+  background: var(--neon-pink);
+  color: #0b0620;
+  box-shadow: 0 0 20px rgba(255, 46, 196, 0.5);
+}
+
+.board-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

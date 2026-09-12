@@ -2,16 +2,36 @@ import { query } from "./index.js";
 
 const migrations = [
   `
-    CREATE TABLE IF NOT EXISTS messages (
+    CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
-      content TEXT NOT NULL,
+      username TEXT NOT NULL UNIQUE,
+      email TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `,
   `
-    INSERT INTO messages (content)
-    SELECT 'Welcome to your new app!'
-    WHERE NOT EXISTS (SELECT 1 FROM messages)
+    DROP TABLE IF EXISTS messages
+  `,
+  `
+    ALTER TABLE users DROP CONSTRAINT IF EXISTS users_pkey
+  `,
+  `
+    ALTER TABLE users DROP COLUMN IF EXISTS id
+  `,
+  `
+    DROP SEQUENCE IF EXISTS users_id_seq
+  `,
+`
+    ALTER TABLE users ADD PRIMARY KEY (username)
+  `,
+  `
+    CREATE TABLE messages (
+      id SERIAL PRIMARY KEY,
+      username TEXT NOT NULL REFERENCES users(username),
+      message TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
   `,
 ];
 

@@ -1,14 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../api";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    navigate("/campmates");
+    try {
+      const user = await login(email, password);
+      localStorage.setItem("brothel_user", user.username);
+      navigate("/campmates");
+    } catch {
+      setError("Login failed. What are you even doing?");
+    }
   }
 
   return (
@@ -42,6 +50,7 @@ function Login() {
             <button type="submit" disabled={!email || !password}>
               Sign In
             </button>
+            {error && <p className="login-error">{error}</p>}
           </form>
         </section>
       </main>
